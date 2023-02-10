@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import './Application.scss';
+import axios from 'axios';
+import './ThirdPartySite.scss';
 
-const Application = () => {
+const ThirdPartySite = () => {
   const [email, setEmail] = useState('');
 
   const handleEmailInput = (e) => {
@@ -11,18 +12,13 @@ const Application = () => {
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
-    if (!email) throw new Error();
     try {
-      axios
-        .post('localhost:3000/api', {
-          email,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      //axios post request to localhost:3000/api to save record
+      const response = await axios.post('http://localhost:3000/api', {
+        email,
+      });
+
+      //then redirect to application component with info
     } catch (error) {
       console.log(error);
     }
@@ -40,4 +36,4 @@ const Application = () => {
   );
 };
 
-export default Application;
+export default ThirdPartySite;
